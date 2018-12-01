@@ -1,3 +1,10 @@
+const errorCodes = {
+  badRequest: 'BAD_REQUEST_ERROR',
+  conflict: 'CONFLICT_ERROR',
+  notFound: 'NOT_FOUND_ERROR',
+  unauthorized: 'UNAUTHORIZED_ERROR'
+};
+
 class HttpException extends Error {
   toJSON() {
     return { error: this.message };
@@ -7,7 +14,7 @@ class HttpException extends Error {
 class BadRequestHttpException extends HttpException {
   constructor(msg) {
     super(msg);
-    this.type = 'bad_request_error';
+    this.code = errorCodes.badRequest;
     this.status = 400;
   }
 }
@@ -15,7 +22,7 @@ class BadRequestHttpException extends HttpException {
 class ConflictHttpException extends HttpException {
   constructor(msg) {
     super(msg);
-    this.type = 'conflict_error';
+    this.code = errorCodes.conflict;
     this.status = 409;
   }
 }
@@ -23,7 +30,7 @@ class ConflictHttpException extends HttpException {
 class NotFoundHttpException extends HttpException {
   constructor(msg) {
     super(msg);
-    this.type = 'not_found_error';
+    this.code = errorCodes.notFound;
     this.status = 404;
   }
 }
@@ -31,7 +38,7 @@ class NotFoundHttpException extends HttpException {
 class UnauthorizedHttpException extends HttpException {
   constructor(msg) {
     super(msg);
-    this.type = 'unauthorized_error';
+    this.code = errorCodes.unauthorized;
     this.status = 401;
   }
 }
@@ -41,4 +48,5 @@ module.exports = {
   ConflictHttpException,
   NotFoundHttpException,
   UnauthorizedHttpException,
+  errorCodes,
 };
